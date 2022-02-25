@@ -34,3 +34,7 @@ Template Engines
 
 WEB
 - Spring Web
+
+##ERROR
+java.sql.SQLSyntaxErrorException:
+sql문 작성할 때 오타로 #대신 $를 작성해서 발생
