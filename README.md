@@ -37,8 +37,13 @@ WEB
 
 ## ERROR
 **java.sql.SQLSyntaxErrorException:**
-* sql문 작성할 때 오타로 #대신 $를 작성해서 발생
+* 원인 : sql문 작성할 때 오타로 #대신 $를 작성해서 발생
 
 **ibatis.reflection.ReflectionException: There is no getter for property named 'notice_yn' in 'class com.board.domain.BoardDTO'**
-* parameterType의 property명과 #{}안의 변수명이 달라서 발생
+* 원인 : parameterType의 property명과 #{}안의 변수명이 달라서 발생
+
+**The operator == is undefined for the argument type(s) long, null**
+* if (params.getIdx() == null) {} 부분에서 에러 발생
+* 원인 : BoardDTO에서 idx 타입이 Long타입이 아니라 long타입으로 되어있었음
+* Long은 long의 Wrapper Class로 객체 타입으로 래퍼 객체는 내부의 값을 비교할 때 == 연산자 사용 불가 (래퍼클래스와 기본 자료형 비교는 ==/equals 둘다 가능)
 
