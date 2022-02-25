@@ -38,6 +38,7 @@ WEB
 ## ERROR
 **java.sql.SQLSyntaxErrorException:**
 * sql문 작성할 때 오타로 #대신 $를 작성해서 발생
+
 **ibatis.reflection.ReflectionException: There is no getter for property named 'notice_yn' in 'class com.board.domain.BoardDTO'**
 * parameterType의 property명과 #{}안의 변수명이 달라서 발생
 
