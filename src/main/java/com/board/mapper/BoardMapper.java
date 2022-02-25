@@ -46,6 +46,6 @@ public interface BoardMapper {
 	
 	//삭제 여부(delete_yn)가 'N'으로 지정된 게시글의 개수를 조회하는 SELECT 쿼리를 호출하는 메서드
 	//페이징 처리를 진행하면서 사용
-	public int selectBoardTotalConut();
+	public int selectBoardTotalCount();
 	
 }

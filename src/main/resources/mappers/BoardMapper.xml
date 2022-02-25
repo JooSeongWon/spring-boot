@@ -20,6 +20,7 @@
 		, update_time
 		, delete_time
 	</sql>
+	
 
 	<!-- #{}: 파라미터 표현식 -->
 	<insert id="insertBoard" parameterType="BoardDTO">
@@ -31,8 +32,8 @@
 			, #{content}
 			, #{writer}
 			, 0
-			, IFNULL(${noticeYn}, 'N')
-			, IFNULL(${secretYn}, 'N')
+			, IFNULL(#{noticeYn}, 'N')
+			, IFNULL(#{secretYn}, 'N')
 			, 'N'
 			, NOW()
 			, NULL
@@ -58,12 +59,13 @@
 			, title = #{title}
 			, content = #{content}
 			, writer = #{writer}
-			, notice_yn = IFNULL(#{notice_yn}, 'N')
-			, secret_yn = IFNULL(#{secret_yn}, 'N')
+			, notice_yn = IFNULL(#{noticeYn}, 'N')
+			, secret_yn = IFNULL(#{secretYn}, 'N')
 		WHERE
 			idx = #{idx}
 	</update>
 	
+	<!-- 실제로 데이터를 삭제하는게 아니라 삭제 여부 컬럼의 상태 값만 변경하는 거라서 <update> 태그 사용 -->
 	<update id="deleteBoard" parameterType="long">
 		UPDATE tb_board
 		SET
