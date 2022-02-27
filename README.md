@@ -49,3 +49,8 @@ WEB
 * 원인 : BoardDTO에서 idx 타입이 Long타입이 아니라 long타입으로 되어있었음
 * Long은 long의 Wrapper Class로 객체 타입으로 래퍼 객체는 내부의 값을 비교할 때 == 연산자 사용 불가 (래퍼클래스와 기본 자료형 비교는 ==/equals 둘다 가능)
 
+**thymeleaf layout**
+* 타임리프 1.x 일때 layout:decorator="layout경로"
+* 타임리프 2.x 일때 layout:decorate="~{layout경로}"
+* 스프링 부트 2.6 이상(타임리프3)일때 layout:decorate="~{layout경로}"
+
