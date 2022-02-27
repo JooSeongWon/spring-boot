@@ -11,11 +11,13 @@
 
 
 ## 개발환경
-STS(이클립스)
+STS(이클립스) 4.13.1
 
 Spring Boot 2.6.3
 
 Java 11
+
+Thymeleaf 3.0
 
 Gradle
 
