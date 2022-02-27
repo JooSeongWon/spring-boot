@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+
+<!-- 타임리프의 th 속성을 사용하기 위해 선언된 네임스페이스 -->
+<!-- 순수 HTML로만 이루어진 페이지는 선언하지 않아도 됨 -->
+<html lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+	<head th:replace="board/fragments/header :: main-head"> </head> <!-- th:replace : header.html의 main-head 프레그먼트로 치환 -->
+	<body th:replace="board/fragments/body :: main-body"> </body>
+</html>
+
+

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+
+<!-- xmlns:th 타임리프 th 속성을 사용하기 위한 선언 -->
+<!-- xmlns:layout 타임리프의 레이아웃 기능을 사용하기 위한 선언 -->
+<!-- layout:decorate 레이아웃으로 basic.html 사용하겠다는 의미 -->
+<!-- 스프링 부트 2.6이상 layout:decorate -->
+<!-- 2.5이하는 layout:decorator -->
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{board/layout/basic}">
+	
+	<th:block layout:fragment="title"> <!-- 속성에 이름을 지정해서 실제 Content 페이지의 내용을 채움 -->
+		<title>The page is a write page</title>
+	</th:block>
+	
+	<!-- 게시글 등록 페이지는 게시글의 정보를 입력할 수 있는 폼이 필요 -->
+	<!-- 게시글 리스트 페이지는 게시글의 정보를 보여주는 테이블이  -->
+	<!-- 페이지마다 Content 영역의 형태가 다르기 때문에 layout:fragment를 이용 -->
+	<th:block layout:fragment="content">
+		<div class="card-content">
+			
+			<!-- form : 태그 안에 선언되어 있는 <input> 등 사용자 입력 필드의 "name"속성 값을 기준으로 th:action 속성에 지정된 URI와 매핑된 컨트롤러으 ㅣ메서드로 폼 데이터(파라미터) 전달 -->
+			<!-- HTTP 요청 메서드 GET(데이터 조회) POST(데이터 생성) -->
+			<!-- onsubmit : 폼 데이터를 컨트롤러로 전송하기전에 폼 데이터의 유효성을 검사하거나 할 때 사용할 수 있는 이벤트-->
+			<!-- 함수명 앞에 return이 선언된 이유 : 자바스크립트 이벤트가 기본적으로 return true의 성향을 가져서 -->
+			<!--  return이 선언되지 않으면, 폼을 서브밋 했을 때 함수를 실행하지 않고, 바로 컨트롤러를 호출하는 문제 발생 -->
+			<!-- th:object 속성의 "${board}" : 컨트롤러에서 뷰(화면)로 전달한 BoardDTO 클래스의 객체(인스턴스)-->
+			<!-- th:field를 이용해서 HTML 태그에 멤버 변수 매핑 -->
+			<!-- th:field를 이용한 사용자 입력 필드(input, textarea 등)는 id, name, value 속성 값이 자동으로 매핑 -->
+			<!-- *{} 표현식 사용 -->
+			<!-- 게시글을 수정할 때 noticeYn과 secretYn 두 필드가 무조건 checked 되는 문제가 발생해서 따로 name 속성 지정 -->
+			<!-- th:checked : 조건이 "true"에 해당하면 checked 속성을 적용 -->
+			<form class="form-horizontal" th:action="@{/board/register.do}" th:object="${board}" method="post" onsubmit="return registerBoard(this)">
+				
+				<!-- /* update의 경우 서버로 전달할 게시글 번호 (PK) -->
+				<input type="hidden" th:if="*{idx != null and idx > 0}" th:field="*{idx}"/>
+				
+				<div class="form-group">
+					<label for="noticeYn" class="col-sm-2 control-label">공지글 설정</label>
+					
+					<div class="col-sm-10" style="margin-top: 10px;">
+						<input type="checkbox" th:value="*{noticeYn}" id="noticeYn" name="noticeYn" th:checked="*{#strings.equals(noticeYn, 'Y')}"/>
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label for="secretYn" class="col-sm-2 control-label">비밀글 설정</label>
+					
+					<div class="col-sm-10" style="margin-top: 10px;">
+						<input type="checkbox" th:value="*{secretYn}" id="secretYn" name="secretYn" th:checked="*{#strings.equals(secretYn, 'Y')}"/>
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label for="title" class="col-sm-2 control-label">제목</label>
+					<div class="col-sm-10">
+						<input type="text" th:field="*{title}" class="form-control" placeholder="제목을 입력해 주세요."/>
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label for="writer" class="col-sm-2 control-label">이름</label>
+					<div class="col-sm-10">
+						<input type="text" th:field="*{writer}" class="form-control" placeholder="이름을 입력해 주세요." />
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="content" class="col-sm-2 control-label">내용</label>
+					<div class="col-sm-10">
+						<textarea th:field="*{content}" class="form-control" placeholder="내용을 입력해 주세요."></textarea>
+					</div>
+				</div>
+					
+				<div class="btn_wrap text-center">
+					<a th:href="@{/board/list.do}" class="btn btn-default waves-effect waves-light">뒤로가기</a>
+					<button type="submit" class="btn btn-primary waves-effect waves-light">저장하기</button>
+				</div>
+				
+			</form> 
+		</div> <!-- /.card-content -->
+	</th:block>
+	
+	<!-- 페이지 마다 로직이 달라서 layout:fragment 사용 -->
+	<th:block layout:fragment="script">
+		
+		<!-- th:inline 속성을 javascript로 지정해야 자바스크립트 사용 가능 -->
+		<script th:inline="javascript">
+		
+			/*<![CDATA[]]*/ //타임리프는 '<', '>' 태그를 엄격하게 검사해서 자바스크립트 코드는 꼭 CDATA로 묶어줘야 한다 특수문자를 전부 문자열로 치환할 때 사용
+				
+			function registerBoard(form) {
+				
+				//체크 여부에 따라 값 지정
+				form.noticeYn.value = form.noticeYn.checked == false ? 'N' : 'Y';
+				form.secretYn.value = form.secretYn.checked == false ? 'N' : 'Y';
+				
+				//result 변수에 isValid(유효성 검사) 함수를 실행한 결과 저장
+				//isValid : 필수적으로 입력되어야 하는 필드의 유효성을 판단하는 기능
+				var result = (
+						isValid(form.title, "제목", null, null)
+						&& isValid(form.writer, "이름", null, null)
+						&& isValid(form.content, "내용", null, null)
+				);
+				
+				if (result==false) {
+					return false;
+				}
+			} /*[ - end of function -] */
+		</script>
+	</th:block>	
+</html>
+
+
+
+
+	<!-- th:text JSP의 EL 표현식인 ${}와 마찬가지로 타임리프도 ${} 표현식으로 컨트롤러에서 전달받은 데이터에 접근 (텍스트형식)-->
+	<!-- <span th:text="${t}">여기는 제목입니다</span> -->
