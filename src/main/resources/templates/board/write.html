@@ -4,8 +4,7 @@
 <!-- xmlns:layout 타임리프의 레이아웃 기능을 사용하기 위한 선언 -->
 <!-- layout:decorate 레이아웃으로 basic.html 사용하겠다는 의미 -->
 <!-- 스프링 부트 2.6이상 layout:decorate -->
-<!-- 2.5이하는 layout:decorator -->
-<html lang="ko" xmlns:th="http://www.thymeleaf.org"  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{board/layout/basic}">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{board/layout/basic}">
 	
 	<th:block layout:fragment="title"> <!-- 속성에 이름을 지정해서 실제 Content 페이지의 내용을 채움 -->
 		<title>The page is a write page</title>

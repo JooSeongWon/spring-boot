@@ -1,23 +1,17 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-<head th:fragment="main-head"><!-- fragment의 이름 지정 -->
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-	<meta name="description" content="">
-	<meta name="author" content="">
-	
-	<!-- layout:fragment 속성에 이름을 지정해서 실제 Content 페이지의 내용을 채우는 기능 -->
-	<!-- 동적인 처리가 필요할 때 사용 -->
-	<th:block layout:fragment="title"></th:block>
-	
-	<!-- 경로 -->
-	<link rel="stylesheet" th:href="@{/css/style.css}" />
-	<link rel="stylesheet" th:href="@{/plugin/mCustomScrollbar/jquery.mCustomScrollbar.min.css}" />
+	<head th:fragment="main-head">
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+		<meta name="description" content="">
+		<meta name="author" content="">
 
-	<th:block layout:fragment="add-css"></th:block>
-</head>
-<body>
+		<th:block layout:fragment="title"></th:block>
 
-</body>
+		<link rel="stylesheet" th:href="@{/css/style.css}" />
+		<link rel="stylesheet" th:href="@{/plugin/mCustomScrollbar/jquery.mCustomScrollbar.min.css}" />
+
+		<th:block layout:fragment="add-css"></th:block>
+	</head>
 </html>
