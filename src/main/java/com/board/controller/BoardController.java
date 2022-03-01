@@ -75,6 +75,24 @@ public class BoardController {
 		return "board/list";
 	}
 	
+	//게시글 조회에 필요한 게시글 번호(idx)를 @RequsetParam을 써서 파라미터로 전달 받고 넘어오지 않았을 때 직접 예외 처리하기위해 false로 설정
+	@GetMapping(value = "/board/view.do")
+	public String openBoardDetail(@RequestParam(value="idx", required = false) Long idx, Model model) {
+		
+		if (idx==null) {
+			// TODO => 올바르지 않은 접근이라는 메시지를 전닳하고, 게시글 리스트로 리다이렉트
+			return "redirect:/board/list.do";
+		}
+		BoardDTO board = boardService.getBoardDetail(idx);
+		
+		if (board==null || "Y".equals(board.getDeleteYn())) {
+			// TODO => 없는 게시글이거나, 이미 삭제된 게시글이라는 메시지를 저저, 게시글 리스트로 리다이렉트
+			return "redirect:/board/list.do";
+		}
+		model.addAttribute("board", board);
+		
+		return "board/view";
+	}
 	
 	
 	
