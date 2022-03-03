@@ -53,4 +53,3 @@ WEB
 * 타임리프 1.x 일때 layout:decorator="layout경로"
 * 타임리프 2.x 일때 layout:decorate="~{layout경로}"
 * 스프링 부트 2.6 이상(타임리프3)일때 layout:decorate="~{layout경로}"
-
