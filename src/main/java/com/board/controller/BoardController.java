@@ -84,7 +84,7 @@ public class BoardController extends UiUtils {
 	public String openBoardDetail(@RequestParam(value="idx", required = false) Long idx, Model model) {
 		
 		if (idx==null) {
-			// TODO => 올바르지 않은 접근이라는 메시지를 전닳하고, 게시글 리스트로 리다이렉트
+			// TODO => 올바르지 않은 접근이라는 메시지를 전닳하고, 게시글 리스트로 리다이렉트@@@
 			return "redirect:/board/list.do";
 		}
 		BoardDTO board = boardService.getBoardDetail(idx);
