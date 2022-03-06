@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.board.domain.BoardDTO;
+import com.board.paging.Criteria;
 
 //리턴 타입
 //게시글 생성, 수정, 삭제 메서드의 리턴 타입 int
@@ -42,10 +43,10 @@ public interface BoardMapper {
 	//게시글 목록을 조회하는 SELECT 쿼리를 호출하는 메서드
 	//리턴 타입으로 지정된 List<BoardDTO>와 같이 "<>"안에 타입을 파라미터로 갖는 형태 -> 제네릭 타입
 	//리스트 안에 하나의 게시글을 조회하는 selectBoardDetail 메서드를 호출한 결과를 여러 개 저장하는 것과 유사
-	public List<BoardDTO> selectBoardList();
+	public List<BoardDTO> selectBoardList(BoardDTO params);
 	
 	//삭제 여부(delete_yn)가 'N'으로 지정된 게시글의 개수를 조회하는 SELECT 쿼리를 호출하는 메서드
 	//페이징 처리를 진행하면서 사용
-	public int selectBoardTotalCount();
+	public int selectBoardTotalCount(BoardDTO params);
 	
 }

@@ -43,7 +43,7 @@ public class DBConfiguration {
 		SqlSessionFactoryBean factoryBean = new SqlSessionFactoryBean(); //마이바티스와 스프링의 연동 모듈 //마이바티스 XML Mapper, 설정 파일 위치 저저저
 		factoryBean.setDataSource(dataSource());
 		factoryBean.setMapperLocations(applicationContext.getResources("classpath:/mappers/**/*Mapper.xml")); //getResounrces메서드의 인자로 지정된 패턴에 포함되는 XML Mapper를 인식하도록 하는 역할
-		factoryBean.setTypeAliasesPackage("com.board.domain");
+		factoryBean.setTypeAliasesPackage("com.board.*");
 		factoryBean.setConfiguration(mybatisConfg()); //mybatiseConfg와 관련된 빈을 설정 파일로 지정
 		return factoryBean.getObject(); //SqlSessionFactoryBean 자체가 아닌, getObject 메서드가 리턴하는 SqlSessionFactory 생성
 	}

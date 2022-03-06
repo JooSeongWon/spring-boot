@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.board.domain.BoardDTO;
 import com.board.mapper.BoardMapper;
+import com.board.paging.PaginationInfo;
 
 @Service
 public class BoardServiceImpl implements BoardService {
@@ -53,17 +54,22 @@ public class BoardServiceImpl implements BoardService {
 
 	//삭제되지 않은 전체 게시글 조회
 	@Override
-	public List<BoardDTO> getBoardList() {
+	public List<BoardDTO> getBoardList(BoardDTO params) {
 		
 		//NUE 방지를 위해 비어있는 리스트 선언
 		List<BoardDTO> boardList = Collections.emptyList();
 		
 		//사용 중인 전체 게시글 수 카운팅 한 결과 저장
-		int boardTotalCount = boardMapper.selectBoardTotalCount();
+		int boardTotalCount = boardMapper.selectBoardTotalCount(params);
+		
+		PaginationInfo paginationInfo = new PaginationInfo(params);
+		paginationInfo.setTotalRecordCount(boardTotalCount);
+		
+		params.setPaginationInfo(paginationInfo);
 		
 		//사용 중인 전체 게시글이 1개 이상이면 boardList에 결과값 반환
 		if (boardTotalCount > 0) {
-			boardList = boardMapper.selectBoardList();
+			boardList = boardMapper.selectBoardList(params);
 		}
 		
 		return boardList;
