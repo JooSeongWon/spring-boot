@@ -38,7 +38,7 @@ WEB
 - Spring Web
 
 ## ERROR
-**java.sql.SQLSyntaxErrorException:**
+**java.sql.SQLSyntaxErrorException**
 * 원인 : sql문 작성할 때 오타로 #대신 $를 작성해서 발생
 
 **ibatis.reflection.ReflectionException: There is no getter for property named 'notice_yn' in 'class com.board.domain.BoardDTO'**
@@ -53,3 +53,9 @@ WEB
 * 타임리프 1.x 일때 layout:decorator="layout경로"
 * 타임리프 2.x 일때 layout:decorate="~{layout경로}"
 * 스프링 부트 2.6 이상(타임리프3)일때 layout:decorate="~{layout경로}"
+
+**Caused by: java.sql.SQLNonTransientConnectionException: Public Key Retrieval is not allowed**
+* mysql 8.x 버젼 이후로 발생
+* build.gradle에 jdbc:mysql://localhost:3306/springboot?allowPublicKeyRetrieval=true 추가
+
+
