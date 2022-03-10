@@ -57,5 +57,6 @@ WEB
 **Caused by: java.sql.SQLNonTransientConnectionException: Public Key Retrieval is not allowed**
 * mysql 8.x 버젼 이후로 발생
 * build.gradle에 jdbc:mysql://localhost:3306/springboot?allowPublicKeyRetrieval=true 추가
+* 단순히 mysql을 안켜서??
 
 
